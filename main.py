@@ -50,6 +50,8 @@ def ask_chat(prompt, window, output_queue, font_info):
                 response_data = json.loads(line)
                 output_queue.put(response_data.get('response', ''))
 
+
+        # Ensure that there is space after finishing generating the prompt.
         output_queue.put("\n\n\n")
 
         # Use write_event_value to update GUI from streaming thread
@@ -119,10 +121,8 @@ window = sg.Window('Chatbot', layout, finalize=True)
 
 # Use a separate thread for the streaming response so that it is not interrupted. If it is not on a seperate thread, it will never show, the while true loop
 # for the GUI will not allow it to execute its functions and the screen updater is somehow not a part of that I dont know if you want fix that
-
-# Note that this is where the initial prompt is stored.
 output_queue = queue.Queue()
-streaming_thread = threading.Thread(target=ask_chat, args=('Your name is JAX, help inform anyone about any question that they might have related to neurodiversity and mental diversity. Be constructive with your comments and make sure you appear kind so that they people that might need to use you are wanting to use you and think of you as a friend.', window, output_queue, None), daemon=True)
+streaming_thread = threading.Thread(target=ask_chat, args=('Greetings', window, output_queue, None), daemon=True)
 streaming_thread.start()
 
 while True:
