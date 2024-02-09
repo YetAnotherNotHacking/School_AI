@@ -122,7 +122,7 @@ window = sg.Window('Chatbot', layout, finalize=True)
 # Use a separate thread for the streaming response so that it is not interrupted. If it is not on a seperate thread, it will never show, the while true loop
 # for the GUI will not allow it to execute its functions and the screen updater is somehow not a part of that I dont know if you want fix that
 output_queue = queue.Queue()
-streaming_thread = threading.Thread(target=ask_chat, args=('Greetings', window, output_queue, None), daemon=True)
+streaming_thread = threading.Thread(target=ask_chat, args=('Hello, please explain that you are a helpful assistant to cover areas like ', window, output_queue, None), daemon=True)
 streaming_thread.start()
 
 while True:
